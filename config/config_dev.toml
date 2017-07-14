@@ -1,0 +1,8 @@
+# This is a TOML document.
+
+# dev(debug) config.
+
+[common]
+base = ""
+addr = ":8000" # port
+war = "./public"
