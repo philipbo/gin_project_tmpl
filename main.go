@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/gin-gonic/gin"
 	"github.com/philipbo/gin_project_tmpl/config"
+	"github.com/philipbo/gin_project_tmpl/db"
 	"github.com/philipbo/gin_project_tmpl/gin_mid"
 	"github.com/sirupsen/logrus"
 	"math/rand"
@@ -22,10 +23,13 @@ func main() {
 	conf := config.DecodeConfig(config.ConfigFile)
 	config.GConfig = conf
 
+	//init database source
+	ds := db.NewDs()
+
 	router := gin.New()
 	router.Use(gin_mid.Logger(), gin_mid.Recovery())
 
-	mount(router)
+	mount(router, conf.Common.War, ds)
 
 	logrus.Infof("start web server on %s", conf.Common.Addr)
 	logrus.Fatal(router.Run(conf.Common.Addr))
