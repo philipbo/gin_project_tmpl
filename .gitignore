@@ -1,0 +1,6 @@
+.idea
+out
+.DS_Store
+build
+bin
+*.iml
